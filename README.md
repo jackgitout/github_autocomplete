@@ -5,9 +5,9 @@ Simple AJAX autocomplete rails app that gets responses from GitHub's Search API
 * Ruby version 2.6.6
 
 * Configuration
-  Autocompleter: js-autocomplete
+  - Autocompleter: js-autocomplete
   https://github.com/Pixabay/JavaScript-autoComplete
-  Github API Query Gem: HTTParty
+  - Github API Query Gem: HTTParty
   https://github.com/jnunemaker/httparty
   
 TO-DO
