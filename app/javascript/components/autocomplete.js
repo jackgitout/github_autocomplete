@@ -1,6 +1,8 @@
 import 'js-autocomplete/auto-complete.css';
 import autoComplete from 'js-autocomplete';
 
+const results = document.querySelector('#results');
+
 const renderItem = function (item) {
   let type;
   if (item.type === 'repo') {
@@ -8,13 +10,14 @@ const renderItem = function (item) {
   } else if (item.type === 'user') {
     type = "User: "
   } 
-  return `<div class="autocomplete-suggestion">${type}<span>${item.name}</span></div>`
+  results.innerHTML += `<li>${type}<span>${item.name}</span></li>`;
 };
 
 
 const autocompleteSearch = function() {
   const searchInput = document.getElementById('query');
 
+  
   var xhr;
   new autoComplete({
     selector: searchInput,
@@ -33,10 +36,12 @@ const autocompleteSearch = function() {
           data.users.forEach((user) => {
             matches.push({ type: 'user', name: user });
           });
-        suggest(matches)
+          results.innerHTML = '';  
+          matches.forEach((item) => {
+            renderItem(item);
+        });
       });
     },
-    renderItem: renderItem,
   });
 };
 
