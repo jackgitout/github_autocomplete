@@ -2,7 +2,14 @@ import 'js-autocomplete/auto-complete.css';
 import autoComplete from 'js-autocomplete';
 
 const renderItem = function (item) {
-  return `<div class="autocomplete-suggestion"><span>${item.name}</span></div>`
+  let type;
+  if (item.type === 'repo') {
+    type = 'Repo: '
+  } else if (item.type === 'user') {
+    type = "User: "
+  }
+
+  return `<div class="autocomplete-suggestion">${type}<span>${item.name}</span></div>`
 };
 
 
