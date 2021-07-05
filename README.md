@@ -1,6 +1,6 @@
 # README
 
-Simple AJAX autocomplete rails app that gets responses from GitHub's Search API 
+Simple AJAX autocomplete rails app that gets repository and username responses from GitHub's Search API 
 
 * Ruby version 2.6.6
 
