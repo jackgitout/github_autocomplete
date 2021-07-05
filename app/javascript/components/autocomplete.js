@@ -22,6 +22,9 @@ const autocompleteSearch = function() {
           data.repos.forEach((repo) => {
             matches.push({type: 'repo', name: repo });
           });
+          data.users.forEach((user) => {
+            matches.push({type: 'user', name: user });
+          });
         suggest(matches)
       });
     },
