@@ -14,7 +14,7 @@ RSpec.describe AutocompleteSearchService do
       end
     end
 
-    context 'Two search qualifier repo and users' do
+    context 'Two search qualifiers repo and users' do
       subject { described_class.new("jack") }
 
       it 'returns a Hash of 2 key/value pair' do

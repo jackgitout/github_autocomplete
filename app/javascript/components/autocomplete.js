@@ -17,14 +17,11 @@ const renderItem = function (item) {
 const autocompleteSearch = function() {
   const searchInput = document.getElementById('query');
 
-  
-  var xhr;
   new autoComplete({
     selector: searchInput,
     minChars: 1,
-    source: function(term, suggest){
-      try { xhr.abort(); } catch(e){}
-      xhr = $.getJSON('/autocomplete',
+    source: function(term){
+      $.getJSON('/autocomplete',
         { q: term },
         function(data) {
           return data;

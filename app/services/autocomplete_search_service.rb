@@ -12,15 +12,13 @@ class AutocompleteSearchService
     { repos: repos, users: users }
   end
 
-  private
-
   def repos
-    response = self.class.get("/search/repositories", query: { q: @term })
+    response = self.class.get("/search/repositories",  headers: {"Authorization" => "token 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"}, query: { q: @term })
     response["items"].map { |item| item["full_name"] }.first(5)
   end
 
   def users
-    response = self.class.get("/search/users", query: { q: @term + " "})
+    response = self.class.get("/search/users", headers: {"Authorization" => "token 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"}, query: { q: @term })
     response["items"].map { |item| item["login"] }.first(5)
   end
 end
