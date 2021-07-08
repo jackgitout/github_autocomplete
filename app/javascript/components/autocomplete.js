@@ -8,11 +8,13 @@ const renderItem = function (item) {
   if (item.type === 'repo') {
     type = 'Repo: '
   } else if (item.type === 'user') {
-    type = "User: "
+    type = 'User: '
   } 
+  else {
+    type = 'Error: '
+  }
   results.innerHTML += `<li>${type}<span>${item.name}</span></li>`;
 };
-
 
 const autocompleteSearch = function() {
   const searchInput = document.getElementById('query');
@@ -34,7 +36,10 @@ const autocompleteSearch = function() {
             matches.push({ type: 'user', name: user });
           });
           results.innerHTML = '';  
-          matches.forEach((item) => {
+          if (matches.length === 0) {
+            matches.push({ type: 'error', name: 'API limit reached (30 calls per minute), please try again in 1 min.'} )
+          }
+            matches.forEach((item) => {
             renderItem(item);
         });
       });

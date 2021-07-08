@@ -1,8 +1,6 @@
-require 'pry-byebug'
-
 class AutocompleteSearchService
   include HTTParty
-  base_uri "https://api.github.com/"
+  base_uri 'https://api.github.com/'
 
   def initialize(term)
     @term = term
@@ -15,12 +13,19 @@ class AutocompleteSearchService
   private
   
   def repos
-    response = self.class.get("/search/repositories",  headers: { "Authorization" => "token #{ENV['GITHUB_TOKEN']}" }, query: { q: @term })
-    response["items"].map { |item| item["full_name"] }.first(5)
+    limit_check('repositories', 'full_name')
   end
 
   def users
-    response = self.class.get("/search/users", headers: { "Authorization" => "token #{ENV['GITHUB_TOKEN']}" }, query: { q: @term })
-    response["items"].map { |item| item["login"] }.first(5)
+    limit_check('users', 'login')
+  end
+
+  def limit_check(qualifier, key_word)
+    response = self.class.get("/search/#{qualifier}",  headers: { 'Authorization' => "token #{ENV['GITHUB_TOKEN']}" }, query: { q: @term })
+    if response.key?('items')
+      response['items'].map { |item| item[key_word] }.first(5)
+    else
+      response = []
+    end
   end
 end
