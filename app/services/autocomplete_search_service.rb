@@ -21,7 +21,12 @@ class AutocompleteSearchService
   end
 
   def limit_check(qualifier, key_word)
-    response = self.class.get("/search/#{qualifier}",  headers: { 'Authorization' => "token #{ENV['GITHUB_TOKEN']}" }, query: { q: @term })
+    if ENV['GITHUB_TOKEN'] == nil
+      response = self.class.get("/search/#{qualifier}", query: { q: @term })
+    else
+      response = self.class.get("/search/#{qualifier}",  headers: { 'Authorization' => "token #{ENV['GITHUB_TOKEN']}" }, query: { q: @term })
+    end
+    
     if response.key?('items')
       response['items'].map { |item| item[key_word] }.first(5)
     else
