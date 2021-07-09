@@ -2,12 +2,10 @@ require 'rails_helper'
 
 RSpec.describe PagesController, type: :controller do
   describe "GET #autocomplete" do
-    before do
-      get :autocomplete
-    end
-  
     it "returns http success" do
-      expect(response).to have_http_status(:success)
+      json_response = File.open("spec/fixtures/repository_response.json")
+      stub_request(:get, "https://api.github.com/search/repositories?q=").
+        to_return(status: 200, body: json_response)
     end
 
     it "JSON body response contains expected search qualifiers" do
